@@ -5,7 +5,7 @@
     'name': 'Party Search',
     'name_ca_ES': 'Cerca de tercers',
     'name_es_ES': 'Búsqueda de terceros',
-    'version': '2.4.1',
+    'version': '2.4.0',
     'author': 'Zikzakmedia',
     'email': 'zikzak@zikzakmedia.com',
     'website': 'http://www.zikzakmedia.com/',
