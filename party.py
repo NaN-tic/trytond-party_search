@@ -16,29 +16,27 @@ class Party:
 
     @classmethod
     def search_rec_name(cls, name, clause):
-        ids = cls.search([('vat_number',) + clause[1:]], order=[])
-        if not ids:
+        parties = cls.search([('vat_number',) + tuple(clause[1:])], order=[])
+        if not parties:
             Mechanism = Pool().get('party.contact_mechanism')
-            mechanism_ids = Mechanism.search([
+            mechanisms = Mechanism.search([
                     ('type','in',('email','phone','mobile')),
-                    (('value',) + clause[1:]),
+                    (('value',) + tuple(clause[1:])),
             ])
-            ids = [mechanism.party.id for mechanism in \
-                   Mechanism.browse(mechanism_ids)]
-        if not ids:
+            parties = [mechanism.party for mechanism in \
+                   Mechanism.browse(mechanisms)]
+        if not parties:
             Address = Pool().get('party.address')
-            address_ids = Address.search([
+            addresses = Address.search([
                     'OR', 'OR',
-                    (('email',) + clause[1:]),
-                    (('phone',) + clause[1:]),
-                    (('mobile',) + clause[1:]),
+                    (('email',) + tuple(clause[1:])),
+                    (('phone',) + tuple(clause[1:])),
+                    (('mobile',) + tuple(clause[1:])),
             ])
-            ids = [address.party.id for address in \
-                   Address.browse(address_ids)]
-        if not ids:
-            ids = cls.search([(('tradename',) + clause[1:])])
-        if ids:
-            ids += cls.search([('name',) + clause[1:]], order=[])
-            return [('id', 'in', ids)]
+            parties = [address.party for address in \
+                   Address.browse(addresses)]
+        if not parties:
+            parties = cls.search([(('tradename',) + tuple(clause[1:]))])
+        if parties:
+            return [('id', 'in', [party.id for party in parties])]
         return super(Party, cls).search_rec_name(name, clause)
-
