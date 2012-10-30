@@ -12,7 +12,6 @@ __metaclass__ = PoolMeta
 class Party:
     'Party'
     __name__ = 'party.party'
-    tradename = fields.Char('Trade Name')
 
     @classmethod
     def search_rec_name(cls, name, clause):
