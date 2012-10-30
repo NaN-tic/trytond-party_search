@@ -17,13 +17,14 @@ class Party:
     def search_rec_name(cls, name, clause):
         parties = cls.search([('vat_number',) + tuple(clause[1:])], order=[])
         if not parties:
+            parties = cls.search([(('tradename',) + tuple(clause[1:]))])
+        if not parties:
             Mechanism = Pool().get('party.contact_mechanism')
             mechanisms = Mechanism.search([
                     ('type','in',('email','phone','mobile')),
                     (('value',) + tuple(clause[1:])),
             ])
-            parties = [mechanism.party for mechanism in \
-                   Mechanism.browse(mechanisms)]
+            parties = [mechanism.party for mechanism in mechanisms]
         if not parties:
             Address = Pool().get('party.address')
             addresses = Address.search([
@@ -32,10 +33,7 @@ class Party:
                     (('phone',) + tuple(clause[1:])),
                     (('mobile',) + tuple(clause[1:])),
             ])
-            parties = [address.party for address in \
-                   Address.browse(addresses)]
-        if not parties:
-            parties = cls.search([(('tradename',) + tuple(clause[1:]))])
+            parties = [address.party for address in addresses]
         if parties:
             return [('id', 'in', [party.id for party in parties])]
         return super(Party, cls).search_rec_name(name, clause)
