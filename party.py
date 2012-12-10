@@ -28,10 +28,7 @@ class Party:
         if not parties:
             Address = Pool().get('party.address')
             addresses = Address.search([
-                    'OR', 'OR',
-                    (('email',) + tuple(clause[1:])),
-                    (('phone',) + tuple(clause[1:])),
-                    (('mobile',) + tuple(clause[1:])),
+                    (('name',) + tuple(clause[1:])),
             ])
             parties = [address.party for address in addresses]
         if parties:
