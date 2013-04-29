@@ -30,5 +30,6 @@ class Party:
             ])
             parties = [address.party for address in addresses]
         if parties:
+            parties += cls.search([('name',) + tuple(clause[1:])], order=[])
             return [('id', 'in', [party.id for party in parties])]
         return super(Party, cls).search_rec_name(name, clause)
