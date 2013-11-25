@@ -15,7 +15,7 @@ class Party:
     def search_rec_name(cls, name, clause):
         parties = cls.search([('vat_number',) + tuple(clause[1:])], order=[])
         if not parties:
-            parties = cls.search([(('tradename',) + tuple(clause[1:]))])
+            parties = cls.search([(('trade_name',) + tuple(clause[1:]))])
         if not parties:
             Mechanism = Pool().get('party.contact_mechanism')
             mechanisms = Mechanism.search([
