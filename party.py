@@ -24,11 +24,4 @@ class Party:
             ])
             parties = [mechanism.party for mechanism in mechanisms]
             domain = [('id', 'in', [party.id for party in parties])]
-        if not parties:
-            Address = Pool().get('party.address')
-            addresses = Address.search([
-                    (('name',) + tuple(clause[1:])),
-            ])
-            parties = [address.party for address in addresses]
-            domain = [('id', 'in', [party.id for party in parties])]
         return domain
