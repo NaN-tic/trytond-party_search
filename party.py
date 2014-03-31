@@ -13,9 +13,9 @@ class Party:
 
     @classmethod
     def search_rec_name(cls, name, clause):
-        parties = cls.search([('vat_number',) + tuple(clause[1:])], order=[])
-        if not parties:
-            parties = cls.search([(('trade_name',) + tuple(clause[1:]))])
+        domain = super(Party, cls).search_rec_name(name, clause)
+        domain = ['OR', ('vat_number',) + tuple(clause[1:]), domain]
+        parties = cls.search(domain)
         if not parties:
             Mechanism = Pool().get('party.contact_mechanism')
             mechanisms = Mechanism.search([
@@ -23,13 +23,12 @@ class Party:
                     (('value',) + tuple(clause[1:])),
             ])
             parties = [mechanism.party for mechanism in mechanisms]
+            domain = [('id', 'in', [party.id for party in parties])]
         if not parties:
             Address = Pool().get('party.address')
             addresses = Address.search([
                     (('name',) + tuple(clause[1:])),
             ])
             parties = [address.party for address in addresses]
-        if parties:
-            parties += cls.search([('name',) + tuple(clause[1:])], order=[])
-            return [('id', 'in', [party.id for party in parties])]
-        return super(Party, cls).search_rec_name(name, clause)
+            domain = [('id', 'in', [party.id for party in parties])]
+        return domain
