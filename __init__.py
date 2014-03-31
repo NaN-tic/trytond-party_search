@@ -4,9 +4,11 @@
 
 from trytond.pool import Pool
 from .party import *
+from .address import *
 
 
 def register():
     Pool.register(
         Party,
+        Address,
         module='party_search', type_='model')
