@@ -9,7 +9,6 @@ __metaclass__ = PoolMeta
 
 
 class Address:
-    'Party'
     __name__ = 'party.address'
 
     @classmethod

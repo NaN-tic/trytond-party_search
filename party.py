@@ -9,7 +9,6 @@ __metaclass__ = PoolMeta
 
 
 class Party:
-    'Party'
     __name__ = 'party.party'
 
     @classmethod
