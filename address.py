@@ -15,7 +15,6 @@ class Address:
     def search_rec_name(cls, name, clause):
         Mechanism = Pool().get('party.contact_mechanism')
 
-        domain = super(Address, cls).search_rec_name(name, clause)
         mechanisms = Mechanism.search([
                 ('type', 'in', ('email', 'phone', 'mobile')),
                 (('value',) + tuple(clause[1:])),
@@ -24,5 +23,7 @@ class Address:
         if mechanisms:
             domain = [('id', 'in',
                 [mechanism.address.id for mechanism in mechanisms])]
+        else:
+            domain = super(Address, cls).search_rec_name(name, clause)
 
         return domain
