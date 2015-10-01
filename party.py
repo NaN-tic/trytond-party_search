@@ -16,7 +16,6 @@ class Party:
         Mechanism = Pool().get('party.contact_mechanism')
 
         domain = super(Party, cls).search_rec_name(name, clause)
-        domain = ['OR', ('vat_number',) + tuple(clause[1:]), domain]
         parties = cls.search(domain)
         if not parties:
             mechanisms = Mechanism.search([
