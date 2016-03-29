@@ -5,10 +5,10 @@ from trytond.pool import Pool, PoolMeta
 
 
 __all__ = ['Address']
-__metaclass__ = PoolMeta
 
 
 class Address:
+    __metaclass__ = PoolMeta
     __name__ = 'party.address'
 
     @classmethod
