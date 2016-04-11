@@ -13,16 +13,12 @@ class Party:
 
     @classmethod
     def search_rec_name(cls, name, clause):
-        Mechanism = Pool().get('party.contact_mechanism')
-
         domain = super(Party, cls).search_rec_name(name, clause)
-        parties = cls.search(domain)
-        if not parties:
-            mechanisms = Mechanism.search([
-                    ('type', 'in', ('email', 'phone', 'mobile')),
-                    (('value',) + tuple(clause[1:])),
-            ])
-            domain = [('id', 'in',
-                [mechanism.party.id for mechanism in mechanisms])]
-
-        return domain
+        if clause[1].startswith('!') or clause[1].startswith('not '):
+            bool_op = 'AND'
+        else:
+            bool_op = 'OR'
+        return [bool_op,
+            domain,
+            ('contact_mechanisms.value',) + tuple(clause[1:]),
+            ]
