@@ -1,8 +1,7 @@
 #This file is part party_search module for Tryton.
 #The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
-from trytond.pool import Pool, PoolMeta
-
+from trytond.pool import PoolMeta
 
 __all__ = ['Address']
 
@@ -20,5 +19,5 @@ class Address:
             bool_op = 'OR'
         return [bool_op,
             domain,
-            ('contact_mechanisms.value',) + tuple(clause[1:]),
+            ('party.contact_mechanisms.value',) + tuple(clause[1:]),
             ]
