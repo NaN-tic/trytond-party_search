@@ -12,11 +12,11 @@ class Address(metaclass=PoolMeta):
     @classmethod
     def search_rec_name(cls, name, clause):
         domain = super(Address, cls).search_rec_name(name, clause)
-        if clause[1].startswith('!') or clause[1].startswith('not '):
-            bool_op = 'AND'
-        else:
-            bool_op = 'OR'
-        return [bool_op,
-            domain,
-            ('party.contact_mechanisms.value',) + tuple(clause[1:]),
-            ]
+
+        party_domain = ('party', clause[1], clause[2])
+        if party_domain in domain:
+            domain.remove(party_domain)
+            domain.append(('party.name',) + tuple(clause[1:]))
+
+        return domain + [
+            ('party.contact_mechanisms.value',) + tuple(clause[1:])]
