@@ -31,7 +31,7 @@ class PartySearchTestCase(ModuleTestCase):
                         }])],
                     'contact_mechanisms': [('create', [{
                         'type': 'phone',
-                        'value': '987654321',
+                        'value': '+442083661177',
                         }])],
                     }])
         party2, = Party.create([{
@@ -47,7 +47,7 @@ class PartySearchTestCase(ModuleTestCase):
                         }])],
                     'contact_mechanisms': [('create', [{
                         'type': 'phone',
-                        'value': '123456789',
+                        'value': '+442083661166',
                         }])],
                     }])
 
@@ -55,9 +55,9 @@ class PartySearchTestCase(ModuleTestCase):
         self.assertEqual(len(search1), 2)
         search2 = Party.search([('rec_name', 'ilike', '%sabadell%')])
         self.assertEqual(len(search2), 2)
-        search3 = Party.search([('rec_name', 'ilike', '%123456789%')])
+        search3 = Party.search([('rec_name', 'ilike', '%+442083661166%')])
         self.assertEqual(len(search3), 1)
-        search4 = Address.search([('rec_name', 'ilike', '%123456789%')])
+        search4 = Address.search([('rec_name', 'ilike', '%+442083661166%')])
         self.assertEqual(len(search4), 2)
         search5 = Address.search([
             ('rec_name', 'ilike', '%Party 1%'), ('zip', '=', '08202')])
