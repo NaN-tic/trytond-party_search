@@ -19,4 +19,6 @@ class Address(metaclass=PoolMeta):
             domain.append(('party.name',) + tuple(clause[1:]))
 
         return domain + [
-            ('party.contact_mechanisms.value',) + tuple(clause[1:])]
+            ('party.contact_mechanisms.value',) + tuple(clause[1:]),
+            ('party.contact_mechanisms.value_compact',) + tuple(clause[1:]),
+            ]
