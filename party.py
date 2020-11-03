@@ -15,6 +15,7 @@ class Party(metaclass=PoolMeta):
         return domain + [
             ('contact_mechanisms.value',) + tuple(clause[1:]),
             ('addresses.name',) + tuple(clause[1:]),
+            ('addresses.party_name',) + tuple(clause[1:]),
             ('addresses.street',) + tuple(clause[1:]),
             ('addresses.zip',) + tuple(clause[1:]),
             ('addresses.city',) + tuple(clause[1:]),
