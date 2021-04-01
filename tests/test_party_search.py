@@ -23,11 +23,11 @@ class PartySearchTestCase(ModuleTestCase):
                     'addresses': [('create', [{
                         'street': 'Street 1',
                         'city': 'Vilafranca',
-                        'zip': '08720',
+                        'postal_code': '08720',
                         }, {
                         'street': 'Street 2',
                         'city': 'Sabadell',
-                        'zip': '08202',
+                        'postal_code': '08202',
                         }])],
                     'contact_mechanisms': [('create', [{
                         'type': 'phone',
@@ -39,11 +39,11 @@ class PartySearchTestCase(ModuleTestCase):
                     'addresses': [('create', [{
                         'street': 'Street 1',
                         'city': 'Manresa',
-                        'zip': '08240',
+                        'postal_code': '08240',
                         }, {
                         'street': 'Street 2',
                         'city': 'Sabadell',
-                        'zip': '08202',
+                        'postal_code': '08202',
                         }])],
                     'contact_mechanisms': [('create', [{
                         'type': 'phone',
@@ -60,10 +60,10 @@ class PartySearchTestCase(ModuleTestCase):
         search4 = Address.search([('rec_name', 'ilike', '%+442083661166%')])
         self.assertEqual(len(search4), 2)
         search5 = Address.search([
-            ('rec_name', 'ilike', '%Party 1%'), ('zip', '=', '08202')])
+            ('rec_name', 'ilike', '%Party 1%'), ('postal_code', '=', '08202')])
         self.assertEqual(len(search5), 1)
         search6 = Address.search(['OR',
-            ('rec_name', 'ilike', '%sabadell%'), ('zip', '=', '08720')])
+            ('rec_name', 'ilike', '%sabadell%'), ('postal_code', '=', '08720')])
         self.assertEqual(len(search6), 3)
 
 def suite():

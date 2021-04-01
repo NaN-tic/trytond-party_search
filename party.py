@@ -3,8 +3,6 @@
 #the full copyright notices and license terms.
 from trytond.pool import PoolMeta
 
-__all__ = ['Party']
-
 
 class Party(metaclass=PoolMeta):
     __name__ = 'party.party'
@@ -17,6 +15,6 @@ class Party(metaclass=PoolMeta):
             ('addresses.name',) + tuple(clause[1:]),
             ('addresses.party_name',) + tuple(clause[1:]),
             ('addresses.street',) + tuple(clause[1:]),
-            ('addresses.zip',) + tuple(clause[1:]),
+            ('addresses.postal_code',) + tuple(clause[1:]),
             ('addresses.city',) + tuple(clause[1:]),
             ]
