@@ -1,14 +1,13 @@
-# This file is part of the party_search module for Tryton.
-# The COPYRIGHT file at the top level of this repository contains the full
-# copyright notices and license terms.
-import unittest
-import trytond.tests.test_tryton
+
+# This file is part of Tryton.  The COPYRIGHT file at the top level of
+# this repository contains the full copyright notices and license terms.
+
 from trytond.tests.test_tryton import ModuleTestCase, with_transaction
 from trytond.pool import Pool
 
 
 class PartySearchTestCase(ModuleTestCase):
-    'Test Party Search module'
+    'Test PartySearch module'
     module = 'party_search'
 
     @with_transaction()
@@ -66,8 +65,5 @@ class PartySearchTestCase(ModuleTestCase):
             ('rec_name', 'ilike', '%sabadell%'), ('postal_code', '=', '08720')])
         self.assertEqual(len(search6), 3)
 
-def suite():
-    suite = trytond.tests.test_tryton.suite()
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
-        PartySearchTestCase))
-    return suite
+
+del ModuleTestCase
