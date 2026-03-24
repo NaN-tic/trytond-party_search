@@ -13,7 +13,7 @@ class Address(metaclass=PoolMeta):
     def search_rec_name(cls, name, clause):
         domain = super(Address, cls).search_rec_name(name, clause)
 
-        party_domain = ('party', clause[1], clause[2])
+        party_domain = ('party',) + tuple(clause[1:])
         if party_domain in domain:
             domain.remove(party_domain)
             domain.append(('party.name',) + tuple(clause[1:]))
